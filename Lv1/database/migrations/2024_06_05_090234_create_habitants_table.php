@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('cin');
             $table->string('nom');
+            $table->string('email')->unique();
             $table->foreignId('ville_id')->constrained()->cascadeOnDelete();
+            $table->string('password');
             $table->string('photo')->nullable();
             $table->timestamps();
         });

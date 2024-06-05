@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HabitantRequest;
 use App\Models\Habitant;
+use App\Models\Ville;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HabitantController extends Controller
 {
@@ -13,7 +15,7 @@ class HabitantController extends Controller
      */
     public function index()
     {
-        $habitants=Habitant::all();
+        $habitants=Habitant::latest()->paginate(3);
         return view('habitants.index',compact('habitants'));
         
     }
@@ -21,22 +23,33 @@ class HabitantController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    
+    public function create()
+    {
+        $villes=Ville::all();
+        return view('habitants.create',compact('villes'));
+        
+    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(HabitantRequest $request)
     {
+        // Handle the photo upload if provided
+        $photoPath = $request->file('photo') ? $request->file('photo')
+        ->store('photos', 'public') : null;
+        
+        // Create the new Habitant
         Habitant::create([
             'cin' => $request->cin,
             'nom' => $request->nom,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'ville_id' => $request->ville_id,
-            'photo' => $request->photo,
+            'photo' => 'storage/'.$photoPath,
         ]);
-        return redirect('habitants')->with('success','habitant created successfully');
+    
+        return redirect('habitants')->with('success', 'Habitant created successfully');
     }
 
     /**

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Habitant::factory(10)->create();
+        \App\Models\Ville::factory(10)->create(); // Create 10 Villes
+        \App\Models\Habitant::factory(50)->create(); // Create 50 Habitants
     }
 }

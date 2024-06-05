@@ -22,12 +22,12 @@ class HabitantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cin' => 'required|numeric|max:8' ,
-            'nom' => 'required|string|max:20' ,
-            'email' => 'required|string|email|unique:Habitant,email' ,
-            'password' => 'required|string|min:8' ,
-            'ville_id' => 'required|string|exists:Ville,id' ,
-            'photo' => 'nullable|image|2048' ,
+            'cin' => ['required', 'string', 'max:8'],
+            'nom' => ['required', 'string', 'max:15'],
+            'email' => ['required', 'string', 'email', 'max:50', 'unique:habitants'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'ville_id' => ['required', 'exists:villes,id'],
+            'photo' => ['nullable', 'image', 'max:2048'], // photo is optional 
         ];
     }
 }
