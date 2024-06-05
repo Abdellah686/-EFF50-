@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('cin');
             $table->string('nom');
             $table->foreignId('ville_id')->constrained()->cascadeOnDelete();
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

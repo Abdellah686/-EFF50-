@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HabitantRequest;
 use App\Models\Habitant;
-use App\Models\Ville;
-use App\Notifications\HabitantNotification;
 use Illuminate\Http\Request;
 
 class HabitantController extends Controller
@@ -22,24 +21,22 @@ class HabitantController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $habitants=Habitant::all();
-        return view('habitants.create',compact('habitants'));
-    }
+    
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(HabitantRequest $request)
     {
         Habitant::create([
             'cin' => $request->cin,
             'nom' => $request->nom,
             'email' => $request->email,
+            'password' => $request->password,
             'ville_id' => $request->ville_id,
             'photo' => $request->photo,
         ]);
+        return redirect('habitants')->with('success','habitant created successfully');
     }
 
     /**

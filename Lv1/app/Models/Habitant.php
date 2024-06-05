@@ -10,7 +10,7 @@ class Habitant extends Model
 {
     use HasFactory,Notifiable;
     
-    protected $fillable = ['cin','nom','email','ville_id','photo'];
+    protected $fillable = ['cin','nom','email','password','ville_id','photo'];
 
     public function ville(){
         return $this->belongsTo(Ville::class);

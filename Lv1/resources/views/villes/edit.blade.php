@@ -1,22 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body style="text-align: center;">
-    <form action="{{ route('villes.update',compact($v->id))}}" method="post">
-        @csrf
-        @method('PATCH')
-        <select name="ville_id">
-            @foreach ($villes as $v)
-                <option value="{{ $v->id }}">{{ $v->name }}</option>
-            @endforeach
-        </select>
-        <button type="submit">create</button>
-    </form>
-</body>
+@extends('base')
+@section('content')
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Update Ville</div>
 
-</html>
+                <div class="card-body">
+                    <form action="{{ route('villes.update', $ville->id) }}" method="post">
+                        @csrf
+                        @method('PATCH')
+
+                        <div class="form-group">
+                            <label for="ville_id">Select Ville</label>
+                            <select name="ville_id" class="form-control @error('ville_id') is-invalid @enderror">
+                                @foreach ($villes as $v)
+                                    <option value="{{ $v->id }}" {{ $v->id == $ville->id ? 'selected' : '' }}>
+                                        {{ $v->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('ville_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

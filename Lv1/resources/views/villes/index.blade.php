@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
+@extends('base');
+@section('content')
     @if (session('success'))
         <div style="background-color:aqua">{{ session('success') }}</div>
     @endif
-
-   <div>
-    @foreach ($villes as $v)
-    <ul>
-        <li>{{ $v->name }}</li>
-    </ul>
-@endforeach
-   </div>
-</body>
-
-</html>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">VILLE</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($villes as $v)
+                <tr>
+                    <th scope="row">{{ $v->name }}</th>
+                    <td>
+                        <a href="/villes/{{ $v->id }}/edit" class="btn btn-info" style="text-decoration: none;">
+                            Edit
+                        </a>
+                    </td>
+                    
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endsection
