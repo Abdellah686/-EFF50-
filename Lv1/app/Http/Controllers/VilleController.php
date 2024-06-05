@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VilleRequest;
 use App\Models\Habitant;
 use App\Models\Ville;
 use App\Notifications\HabitantNotification;
@@ -29,7 +30,7 @@ class VilleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VilleRequest $request)
     {
         $ville = Ville::create([
             'name' => $request->name
