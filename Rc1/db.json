@@ -1,0 +1,33 @@
+[
+    {
+        "_id":"e1",
+        "nomEmp":"Lamrabet",
+        "prenomEmp":"Oussama",
+        "poste":"Directeur",
+        "department":{
+            "codeDep":"1",
+            "nomDep":"RH"
+        }
+    },
+    {
+        "_id": "e2",
+        "nomEmp": "Dubois",
+        "prenomEmp": "Marie",
+        "poste": "Manager",
+        "department": {
+            "codeDep": "2",
+            "nomDep": "Finance"
+        }
+    },
+    {
+        "_id": "e3",
+        "nomEmp": "Oren",
+        "prenomEmp": "Linh",
+        "poste": "Analyst",
+        "department": {
+            "codeDep": "3",
+            "nomDep": "IT"
+        }
+    }    
+    
+]
