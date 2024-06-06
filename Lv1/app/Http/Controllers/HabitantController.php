@@ -6,6 +6,7 @@ use App\Http\Requests\HabitantRequest;
 use App\Models\Habitant;
 use App\Models\Ville;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class HabitantController extends Controller
@@ -15,9 +16,8 @@ class HabitantController extends Controller
      */
     public function index()
     {
-        $habitants=Habitant::latest()->paginate(3);
-        return view('habitants.index',compact('habitants'));
-        
+        $habitants = Habitant::latest()->paginate(3);
+        return view('habitants.index', compact('habitants'));
     }
 
     /**
@@ -25,9 +25,8 @@ class HabitantController extends Controller
      */
     public function create()
     {
-        $villes=Ville::all();
-        return view('habitants.create',compact('villes'));
-        
+        $villes = Ville::all();
+        return view('habitants.create', compact('villes'));
     }
 
     /**
@@ -37,8 +36,8 @@ class HabitantController extends Controller
     {
         // Handle the photo upload if provided
         $photoPath = $request->file('photo') ? $request->file('photo')
-        ->store('photos', 'public') : null;
-        
+            ->store('photos', 'public') : null;
+
         // Create the new Habitant
         Habitant::create([
             'cin' => $request->cin,
@@ -46,18 +45,27 @@ class HabitantController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'ville_id' => $request->ville_id,
-            'photo' => 'storage/'.$photoPath,
+            'photo' => 'storage/' . $photoPath,
         ]);
-    
+
         return redirect('habitants')->with('success', 'Habitant created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Habitant $id)
     {
-        //
+        $habitant = Auth::guard('web')->user();
+
+        if ($habitant->id !== $id) {
+            return redirect('login');
+        }
+
+        // $cityId = $habitant->ville_id;
+        // $habitantsInSameCity = Habitant::where('ville_id', $cityId)->get();
+
+        return view('habitants.show', compact('habitant'));
     }
 
     /**

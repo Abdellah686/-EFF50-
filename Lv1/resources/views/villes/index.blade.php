@@ -7,6 +7,9 @@
         <thead>
             <tr>
                 <th scope="col">VILLE</th>
+                <th scope="col">HABITANTS</th>
+                <th scope="col">ACTIONS</th>
+
             </tr>
         </thead>
         <tbody>
@@ -14,8 +17,14 @@
                 <tr>
                     <th scope="row">{{ $v->name }}</th>
                     <td>
+                        
+                            @foreach ($v->habitants as $habitant)
+                                <h6>{{ $habitant->nom }}</h6>
+                            @endforeach
+                    </td>
+                    <td>
                         <a href="/villes/{{ $v->id }}/edit" class="btn btn-info" style="text-decoration: none;">
-                            Edit
+                            Edit Ville
                         </a>
                     </td>
                     

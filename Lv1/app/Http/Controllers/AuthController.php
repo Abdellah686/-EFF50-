@@ -12,13 +12,15 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $credentials = $request->only('email', 'password');
+
         if (Auth::guard('web')->attempt($credentials)) {
-            $id = Auth::user()->id;
-            return redirect()->route('profile',$id);
+            return redirect()->intended('/habitants/' . Auth::user()->id);
         }
-        return redirect()->back();
+
+        return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput();
     }
 
     public function logout()
@@ -26,6 +28,4 @@ class AuthController extends Controller
         Auth::guard('web')->logout();
         return redirect('/login');
     }
-
-
 }
